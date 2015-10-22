@@ -14,3 +14,16 @@ class Chirp(models.Model):
 
     def is_recent(self):
         return timezone.now() - datetime.timedelta(days=1) <= self.posted_at
+
+    def __str__(self):
+        return "Author: {}, Message: {}, Posted at:{}".format(
+            self.author.username, self.message, self.posted_at)
+
+
+class Tag(models.Model):
+    chirp = models.ManyToManyField(Chirp)
+    name = models.CharField(max_length=15)
+    posted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Name: {} Posted At: {}".format(self.name, self.posted_at)
