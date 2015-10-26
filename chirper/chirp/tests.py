@@ -13,3 +13,10 @@ class TestChirp(TestCase):
         chirp = Chirp.objects.get(pk=1)
 
         self.assertTrue(chirp.is_recent())
+
+    def test_get_tag_count(self):
+        chirp = Chirp.objects.get(pk=1)
+        chirp.tag_set.create(name="Test1")
+        chirp.tag_set.create(name="Test2")
+
+        self.assertEqual(chirp.get_tag_count(), len(chirp.tag_set.all()))

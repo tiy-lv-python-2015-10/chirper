@@ -13,11 +13,22 @@ class Chirp(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def is_recent(self):
-        return timezone.now() - datetime.timedelta(days=1) <= self.posted_at
+        recent = False
+        yesterday = timezone.now() - datetime.timedelta(days=1)
+        if yesterday <= self.posted_at:
+            recent = True
+
+        return recent
+
+    def get_tag_count(self):
+        return len(self.tag_set.all())
 
     def __str__(self):
         return "Author: {}, Message: {}, Posted at:{}".format(
             self.author.username, self.message, self.posted_at)
+
+    class Meta:
+        ordering = ['-posted_at']
 
 
 class Tag(models.Model):
