@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Chirp List</title>
+</head>
+<body>
+
+    <h2>Chirp List</h2>
+
+    <ul>
+        {% for chirp in chirps %}
+            <li>{{ chirp.author.username }} posted <a href="{% url 'chirp_detail' chirp.id %}">"{{ chirp.message }}"</a>
+                at {{ chirp.posted_at }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
