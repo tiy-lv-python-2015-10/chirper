@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Chirper Chirp Detail</title>
-</head>
-<body>
+{% extends 'chirp/chirp_base.html' %}
 
+{% block content %}
     <h2>Chirp Detail</h2>
 
     <ul>
@@ -15,4 +10,4 @@
         <li>Posted at: {{ chirp.posted_at }}</li>
     </ul>
 
-</html>
+{% endblock %}

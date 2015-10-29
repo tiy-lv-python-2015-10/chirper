@@ -1,10 +1,11 @@
 from django.conf.urls import url
-from chirp.views import ListChirps
+from django.contrib.auth.decorators import login_required
+from chirp.views import ListChirps, ChirpDetail, CreateChirp
 
 # Note that the as_view() has to be called to convert a CBV to a normal view
 urlpatterns = [
     url(r'^$', ListChirps.as_view(), name='list_chirps'),
-    url(r'^(?P<chirp_id>\d+)/$', 'chirp.views.chirp_detail',
+    url(r'^(?P<pk>\d+)/$', ChirpDetail.as_view(),
         name='chirp_detail'),
-    url(r'^create/$', 'chirp.views.chirp_create', name='chirp_create')
+    url(r'^create/$', login_required(CreateChirp.as_view()), name='chirp_create'),
 ]

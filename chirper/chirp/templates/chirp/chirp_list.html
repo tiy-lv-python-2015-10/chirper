@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Chirp List</title>
-</head>
-<body>
+{% extends 'chirp/chirp_base.html' %}
 
+{% block title %}Chirp List{% endblock %}
+
+{% block content %}
     <h2>Chirp List</h2>
 
     <ul>
-        {% for chirp in chirps %}
+        {% for chirp in chirp_list %}
             <li>{{ chirp.author.username }} posted <a href="{% url 'chirp_detail' chirp.id %}">"{{ chirp.message }}"</a>
                 at {{ chirp.posted_at }}</li>
         {% endfor %}
     </ul>
 
-</body>
-</html>
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a href="{% url 'list_chirps' %}?page={{ page_obj.previous_page_number }}"><-Prev</a>
+        {% endif %}
+        {{ page_obj }}
+        {% if page_obj.has_next %}
+            <a href="{% url 'list_chirps' %}?page={{ page_obj.next_page_number }}">Next -></a>
+        {% endif %}
+
+    {% endif %}
+{% endblock %}
