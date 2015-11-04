@@ -1,4 +1,6 @@
 {% extends 'chirp/chirp_base.html' %}
+{% load staticfiles %}
+
 
 {% block content %}
     <h2>Chirp Detail</h2>
@@ -10,4 +12,7 @@
         <li>Posted at: {{ chirp.posted_at }}</li>
     </ul>
 
+    <p>
+    <img src="{% static 'images/kittens.jpg' %}">
+    </p>
 {% endblock %}

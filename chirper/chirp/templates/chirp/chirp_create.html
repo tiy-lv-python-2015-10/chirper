@@ -1,5 +1,4 @@
 {% extends 'chirp/chirp_base.html' %}
-{% load bootstrap3 %}
 
 {% block content %}
     <h2>Create Chirp</h2>
@@ -7,7 +6,12 @@
     <form method="post" action="{% url 'chirp_create' %}" class="form">
         <!-- CSRF Token prevents cross site attacks and is required -->
         {% csrf_token %}
-        {% bootstrap_form form %}
+        {% for field in form %}
+            <div>
+            {{ field.errors }}
+            {{ field.label_tag }}{{ field }}
+            </div>
+        {% endfor %}
         <!-- Django does not insert a submit button -->
         <input type="submit" value="Chirp!" name="submit" class="btn btn-primary">
     </form>
