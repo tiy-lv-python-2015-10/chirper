@@ -3,7 +3,7 @@
 {% block content %}
     <h2>Create Chirp</h2>
     <!-- Django does not provide the form tag -->
-    <form method="post" action="{% url 'chirp_create' %}" class="form">
+    <form method="post" action="{% url 'chirp_create' %}" class="form" enctype="multipart/form-data">
         <!-- CSRF Token prevents cross site attacks and is required -->
         {% csrf_token %}
         {% for field in form %}

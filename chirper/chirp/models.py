@@ -11,6 +11,7 @@ class Chirp(models.Model):
     title = models.CharField(max_length=30, blank=True, null=True)
     posted_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='chirp_images', blank=True, null=True)
 
     def is_recent(self):
         recent = False

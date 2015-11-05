@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
+from chirper import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -22,4 +24,4 @@ urlpatterns = [
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page':"/chirps/"}, name='logout'),
     url('^', include('django.contrib.auth.urls')),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
