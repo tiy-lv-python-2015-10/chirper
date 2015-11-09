@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.utils import timezone
 from django.views.generic import View, ListView, DetailView, CreateView
 from chirp.forms import ChirpForm
-from chirp.models import Chirp
+from chirp.models import Chirp, Tag
 
 
 class ListChirps(ListView):
@@ -15,12 +16,15 @@ class ListChirps(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        tags = Tag.objects.all()
         context['page_load'] = timezone.now()
+        context['tag_list'] = tags
         return context
 
 
 class ChirpDetail(DetailView):
     model = Chirp
+
 
 class CreateChirp(CreateView):
     model = Chirp
