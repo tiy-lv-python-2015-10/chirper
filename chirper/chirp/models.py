@@ -28,6 +28,9 @@ class Chirp(models.Model):
         return "Author: {}, Message: {}, Posted at:{}".format(
             self.author.username, self.message, self.posted_at)
 
+    def __repr__(self):
+        return self.__str__()
+
     class Meta:
         ordering = ['-posted_at']
 
