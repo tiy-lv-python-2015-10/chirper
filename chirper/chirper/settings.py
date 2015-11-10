@@ -40,9 +40,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'rest_framework',
     'bootstrap3',
     'chirp',
-    'users'
+    'users',
+    'api'
+
 )
 
 MIDDLEWARE_CLASSES = (
