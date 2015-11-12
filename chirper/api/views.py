@@ -1,18 +1,12 @@
 from django.contrib.auth.models import User
-from django.core import serializers
-from django.core.serializers import json
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
-from django.views.generic import View
-from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import generics, permissions
+from rest_framework.throttling import AnonRateThrottle
+from api.permissions import IsOwnerOrReadOnly
+
 from api.serializers import ChirpSerializer, UserSerializer
 from chirp.models import Chirp
-from rest_framework import generics
+
 
 class SmallPagination(PageNumberPagination):
     page_size = 10
@@ -28,9 +22,13 @@ class ListCreateChirp(generics.ListCreateAPIView):
     serializer_class = ChirpSerializer
     # The pagination class will override the settings in the REST_FRAMEWORK
     pagination_class = SmallPagination
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    throttle_scope = 'chirps'
+
 
     def perform_create(self, serializer):
-        serializer.save(author=User.objects.get(pk=1))
+        user = self.request.user
+        serializer.save(author=user)
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -47,3 +45,8 @@ class ListCreateChirp(generics.ListCreateAPIView):
 class DetailUpdateChirp(generics.RetrieveUpdateDestroyAPIView):
     queryset = Chirp.objects.all()
     serializer_class = ChirpSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
+    throttle_scope = 'chirps'
+
+

@@ -41,7 +41,9 @@ INSTALLED_APPS = (
     'django_extensions',
     'debug_toolbar',
     'rest_framework',
+    'rest_framework.authtoken',
     'bootstrap3',
+    'corsheaders',
     'chirp',
     'users',
     'api'
@@ -123,5 +125,25 @@ LOGIN_REDIRECT_URL = reverse_lazy('list_chirps')
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.ScopedRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1/day',
+        'user': '1000/day',
+        'chirps': '100000/day'
+    }
+
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
