@@ -12,6 +12,8 @@ class Chirp(models.Model):
     posted_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='chirp_images', blank=True, null=True)
+    favorite_users = models.ManyToManyField(User, through='Favorite',
+                                            related_name='favorite_chirps')
 
     def is_recent(self):
         recent = False
@@ -39,3 +41,15 @@ class Tag(models.Model):
 
     def __str__(self):
         return "Name: {} Posted At: {}".format(self.name, self.posted_at)
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User)
+    chirp = models.ForeignKey(Chirp)
+    favorited_att = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'Favorited By: '+ self.user.username
+
+    def __unicode__(self):
+        return self.__str__()

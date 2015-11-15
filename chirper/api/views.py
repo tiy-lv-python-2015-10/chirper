@@ -4,8 +4,8 @@ from rest_framework import generics, permissions
 from rest_framework.throttling import AnonRateThrottle
 from api.permissions import IsOwnerOrReadOnly
 
-from api.serializers import ChirpSerializer, UserSerializer
-from chirp.models import Chirp
+from api.serializers import ChirpSerializer, UserSerializer, FavoriteSerializer
+from chirp.models import Chirp, Favorite
 
 
 class SmallPagination(PageNumberPagination):
@@ -48,5 +48,17 @@ class DetailUpdateChirp(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly)
     throttle_scope = 'chirps'
+
+
+class ListCreateFavorite(generics.ListCreateAPIView):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+
 
 
