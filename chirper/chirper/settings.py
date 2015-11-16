@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'bootstrap3',
-    'corsheaders',
     'chirp',
     'users',
     'api'
@@ -144,6 +143,3 @@ REST_FRAMEWORK = {
     }
 
 }
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
