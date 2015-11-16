@@ -15,8 +15,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class ChirpSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.id')
-    favorite_set = serializers.StringRelatedField(many=True)
-    favorite_users = serializers.StringRelatedField(many=True)
+    favorite_set = serializers.StringRelatedField(many=True, read_only=True)
+    favorite_users = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Chirp
