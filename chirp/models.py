@@ -1,4 +1,5 @@
 import datetime
+import time
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -25,6 +26,10 @@ class Chirp(models.Model):
 
     def get_tag_count(self):
         return len(self.tag_set.all())
+
+    def get_something_slow(self):
+        time.sleep(10)
+        return "I Am Slow"
 
     def __str__(self):
         return "Author: {}, Message: {}, Posted at:{}".format(

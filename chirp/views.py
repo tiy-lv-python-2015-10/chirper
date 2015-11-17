@@ -28,7 +28,6 @@ class ListChirps(ListView):
 class ChirpDetail(DetailView):
     model = Chirp
 
-
 class CreateChirp(CreateView):
     model = Chirp
     form_class = ChirpForm
