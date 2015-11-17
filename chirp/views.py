@@ -27,6 +27,7 @@ class ListChirps(ListView):
 
 class ChirpDetail(DetailView):
     model = Chirp
+    fdafdsafds
 
 
 class CreateChirp(CreateView):
