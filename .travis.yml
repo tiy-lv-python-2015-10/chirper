@@ -1,6 +1,7 @@
 language: python
 
 python:
+  - 3.4.3
   - 3.5.0
 
 services:
@@ -8,6 +9,7 @@ services:
   - memcached
 
 env:
+  - DJANGO=1.8.5
   - DJANGO=1.8.6
 
 before_install:
