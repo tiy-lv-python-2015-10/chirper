@@ -1,3 +1,4 @@
+import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -8,6 +9,7 @@ from django.views.generic import View, ListView, DetailView, CreateView
 from chirp.forms import ChirpForm
 from chirp.models import Chirp, Tag
 
+logger = logging.getLogger(__name__)
 
 class ListChirps(ListView):
     model = Chirp
@@ -19,6 +21,7 @@ class ListChirps(ListView):
         tags = Tag.objects.all()
         context['page_load'] = timezone.now()
         context['tag_list'] = tags
+        logger.debug('******* SOMEONE WANTS THEM SOME CHIRPS ************')
         return context
 
 
