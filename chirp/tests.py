@@ -11,12 +11,12 @@ class TestChirp(TestCase):
         chirp = Chirp.objects.create(author=user, message='my test message')
 
     def test_is_recent(self):
-        chirp = Chirp.objects.get(pk=1)
+        chirp = Chirp.objects.first()
 
         self.assertTrue(chirp.is_recent())
 
     def test_get_tag_count(self):
-        chirp = Chirp.objects.get(pk=1)
+        chirp = Chirp.objects.first()
         chirp.tag_set.create(name="Test1")
         chirp.tag_set.create(name="Test2")
 
