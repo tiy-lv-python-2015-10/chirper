@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'bootstrap3',
+    'corsheaders',
     'chirp',
     'users',
     'api'
@@ -51,6 +52,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -178,4 +180,14 @@ LOGGING = {
         },
     }
 
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
 }

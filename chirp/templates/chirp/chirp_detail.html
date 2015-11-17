@@ -1,5 +1,6 @@
 {% extends 'chirp/chirp_base.html' %}
 {% load staticfiles %}
+{% load cache %}
 
 
 {% block content %}
@@ -12,7 +13,13 @@
         <li>Posted at: {{ chirp.posted_at }}</li>
     </ul>
 
+    {% cache 500 slow chirp.id %}
+    <p>{{ chirp.get_slow_data }}</p>
+    {% endcache %}
+
     <p>
+    {% if chirp.image %}
     <img src="{{ chirp.image.url }}">
+    {% endif %}
     </p>
 {% endblock %}
