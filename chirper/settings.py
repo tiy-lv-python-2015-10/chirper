@@ -191,3 +191,5 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+STRIPE_API_KEY = "sk_test_Jvvtget7Y7eTGVzyYnAw9Ssy"
