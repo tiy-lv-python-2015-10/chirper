@@ -1,33 +1,31 @@
 language: python
-
 python:
-  - 3.4.3
-  - 3.5.0
-
+- 3.4.3
+- 3.5.0
 services:
-  - postgresql
-  - memcached
-
+- postgresql
+- memcached
 env:
-  - DJANGO=1.8.5
-  - DJANGO=1.8.6
-
+- DJANGO=1.8.5
+- DJANGO=1.8.6
 before_install:
-  - export DJANGO_SETTINGS_MODULE=chirper.travis-settings
-  - export PYTHONPATH=$HOME/builds/jeffnb/chirper
-  - export PIP_USE_MIRRORS=true
-
+- export DJANGO_SETTINGS_MODULE=chirper.travis-settings
+- export PYTHONPATH=$HOME/builds/jeffnb/chirper
+- export PIP_USE_MIRRORS=true
 install:
-  - pip install -r requirements.txt
-  - pip install django==$DJANGO --quiet
-  - pip install psycopg2 --quiet
-
+- pip install -r requirements.txt
+- pip install django==$DJANGO --quiet
+- pip install psycopg2 --quiet
 before_script:
-  - psql -c "CREATE DATABASE chirper;" -U postgres
-  - python manage.py migrate
-
+- psql -c "CREATE DATABASE chirper;" -U postgres
+- python manage.py migrate
 script:
-  - coverage run --source='.' manage.py test users chirp api
-
+- coverage run --source='.' manage.py test users chirp api
 after_success:
-  - coveralls
+- coveralls
+deploy:
+  provider: heroku
+  app: salty-savannah-2651
+  api_key:
+    secure: UPZhLLlH7zZ2PEPnb0huKKEd4mEM9/EkPguxE2Qvumis4xoQLXPLSM2j94Fe7dW+9h8OoKi8fgaRJbZlu94FbqIR2kOdfVhX7doQnuNYwxxce4n6SPOlYeh9zVbrisPgNy1ctDLodpkWlafBH8lG58THmWxMW4DNrOs3X95ocKtc4D+aKM9lrAD16YAkUKGvBNC+P7pA0tDm0927RWYWYaNKO4wM0ygtoiRAlTKoLCyjgUovqAAjtFtcej1Qxkt2MQu+72i1XR97SKQXBaEcu+04XTZAk8Ete8hN50j8es6U5KmPCSFuB36YKOm+OKrLlAKsqFdr22u90gQZkcE6JKg3lex8ZByN2X4jnp/ZM/9buJ8qpW1sVn+XBBhokR5sarAfrlJat4DgUGiQP80G9612xq1Fdr48aP+85xcf8PGXFeDdKNQJPBR5xUxRM9+zQ6Y3F+Tcz+ydM+0IXb4LCvpGlFq7HGA27P7A2osCdrp+WsVgbUYCRBtEy+u7D4CfWPPHs9Fg6SpgV2Cukrr8xlakMhFT94NDkuuYgXZsc73yJm7yVQ1SRbkl8rBtipK13Iks3/+hWpZtadUcpDQTVXNutpP2mu6bQMaxVV6b/AszOkIsuKlUhF1OZskqLCCbZJ14wc2RzvW33Mg8aFRpFj2o+jNIcu3jm3uByGY36eE=
+  run: "python manage.py migrate"
