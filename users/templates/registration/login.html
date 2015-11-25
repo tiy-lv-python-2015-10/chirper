@@ -12,4 +12,6 @@
         <input type="submit" value="Login">
     </form>
 
+    <h2>Social Login</h2>
+    <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
 {% endblock %}

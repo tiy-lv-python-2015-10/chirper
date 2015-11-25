@@ -20,6 +20,7 @@ from chirper import settings
 from users.views import UserDonate
 
 urlpatterns = [
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chirps/', include('chirp.urls')),
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page':"/chirps/"}, name='logout'),
