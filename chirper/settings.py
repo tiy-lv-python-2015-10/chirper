@@ -42,12 +42,18 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'rest_framework',
     'rest_framework.authtoken',
+    'social.apps.django_app.default',
     'bootstrap3',
     'corsheaders',
     'chirp',
     'users',
     'api'
 
+)
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -76,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -193,3 +201,6 @@ CACHES = {
 }
 
 STRIPE_API_KEY = "sk_test_Jvvtget7Y7eTGVzyYnAw9Ssy"
+
+SOCIAL_AUTH_TWITTER_KEY = 'PBOfCQwBpIoAXxxWvVQlFWOuA'
+SOCIAL_AUTH_TWITTER_SECRET = '5abO9Y8vwCGxIR7nIPNbw0G5XFsar0WTb4cDRQN7aEgnc7PBbz'

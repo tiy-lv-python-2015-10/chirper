@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page':"/chirps/"}, name='logout'),
     url(r'^api/', include('api.urls')),
     url(r'^donate/$', UserDonate.as_view()),
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url('^', include('django.contrib.auth.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
