@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 class ListChirps(ListView):
     model = Chirp
-    queryset = Chirp.objects.order_by('-posted_at')
-    paginate_by = 5
+    queryset = Chirp.objects.select_related().order_by('-posted_at')
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

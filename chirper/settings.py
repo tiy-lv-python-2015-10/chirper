@@ -75,7 +75,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -85,12 +84,18 @@ TEMPLATES = [
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
             ],
+            'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
+            ]
         },
     },
 ]
 
 WSGI_APPLICATION = 'chirper.wsgi.application'
-
+CONN_MAX_AGE=120
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -153,6 +158,8 @@ REST_FRAMEWORK = {
     }
 
 }
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 LOGGING = {
     'version': 1,

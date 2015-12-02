@@ -28,7 +28,7 @@ class Chirp(models.Model):
         return len(self.tag_set.all())
 
     def get_slow_data(self):
-        time.sleep(1)
+        time.sleep(5)
         return "I am very slow: {}".format(self.id)
 
     def __str__(self):
