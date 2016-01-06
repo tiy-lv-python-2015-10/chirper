@@ -3,6 +3,7 @@ import time
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 
 
 class Chirp(models.Model):
@@ -27,6 +28,7 @@ class Chirp(models.Model):
     def get_tag_count(self):
         return len(self.tag_set.all())
 
+    @cached_property
     def get_slow_data(self):
         time.sleep(1)
         return "I am very slow: {}".format(self.id)

@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.views import logout
 from chirper import settings
 from users.views import UserDonate
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chirps/', include('chirp.urls')),
-    url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page':"/chirps/"}, name='logout'),
+    url(r'^logout/', logout, {'next_page':"/chirps/"}, name='logout'),
     url(r'^api/', include('api.urls')),
     url(r'^donate/$', UserDonate.as_view()),
     url('', include('social.apps.django_app.urls', namespace='social')),

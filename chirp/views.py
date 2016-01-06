@@ -1,5 +1,6 @@
 import logging
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,23 +14,27 @@ logger = logging.getLogger(__name__)
 
 class ListChirps(ListView):
     model = Chirp
-    queryset = Chirp.objects.order_by('-posted_at')
-    paginate_by = 5
+    queryset = Chirp.objects.select_related().order_by('-posted_at')
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tags = Tag.objects.all()
         context['page_load'] = timezone.now()
         context['tag_list'] = tags
-        logger.debug('******* SOMEONE WANTS THEM SOME CHIRPS ************')
+        #logger.debug('******* SOMEONE WANTS THEM SOME CHIRPS ************')
         return context
 
 
 class ChirpDetail(DetailView):
     model = Chirp
 
+    def get_context_data(self, **kwargs):
+        self.object.get_slow_data
+        return super().get_context_data(**kwargs)
 
-class CreateChirp(CreateView):
+
+class CreateChirp(LoginRequiredMixin, CreateView):
     model = Chirp
     form_class = ChirpForm
     success_url = reverse_lazy('list_chirps')

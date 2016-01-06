@@ -12,5 +12,5 @@ urlpatterns = [
     # View based caching
     # url(r'^(?P<pk>\d+)/$', cache_page(60)(ChirpDetail.as_view()),
     #     name='chirp_detail'),
-    url(r'^create/$', login_required(CreateChirp.as_view()), name='chirp_create'),
+    url(r'^create/$', CreateChirp.as_view(), name='chirp_create'),
 ]

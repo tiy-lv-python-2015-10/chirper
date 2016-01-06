@@ -13,9 +13,9 @@
         <li>Posted at: {{ chirp.posted_at }}</li>
     </ul>
 
-    {% cache 500 slow chirp.id %}
+{#    {% cache 500 slow chirp.id %}#}
     <p>{{ chirp.get_slow_data }}</p>
-    {% endcache %}
+{#    {% endcache %}#}
 
     <p>
     {% if chirp.image %}
